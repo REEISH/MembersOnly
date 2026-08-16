@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container" style="max-width: 800px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <h1>Math Club Log</h1>
+      <a href="/logout">Logout (<%= currentUser.username %>)</a>
+    </div>
+    <% if (!currentUser.membership_status) { %>
+      <div class="banner">
+        <strong>You are a guest.</strong> You can see posts, but authors and timestamps are hidden. 
+        <a href="/member">Solve the riddle to become a member!</a>
+      </div>
+    <% } %>
+    <form action="/log" method="POST" style="margin-bottom: 2rem;">
+      <label for="content">Contribute to the discussion:</label>
+      <input type="text" id="content" name="content" placeholder="Type your mathematical thoughts here..." required>
+      <button type="submit">Post Message</button>
+    </form>
+
+    <hr style="border: 1px solid #eee; margin-bottom: 2rem;">
+    <div class="message-board">
+      <% if (messages && messages.length > 0) { %>
+        <% messages.forEach(function(message) { %>
+          <div class="message-card">
+            <p class="message-content">"<%= message.content %>"</p>
+            
+            <div class="message-meta">
+              <% if (currentUser.membership_status) { %>
+                <span class="author"><strong>Author:</strong> <%= message.author %></span>
+                <span class="date"><%= new Date(message.created_at).toLocaleString() %></span>
+              <% } else { %>
+                <span class="locked-meta">Author Hidden</span>
+                <span class="locked-meta">Date Hidden</span>
+              <% } %>
+            </div>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <p style="text-align: center; color: #7f8c8d;">No messages yet. Be the first to post!</p>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

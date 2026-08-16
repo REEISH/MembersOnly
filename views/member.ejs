@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Membership Challenge</h1>
+    <p style="text-align: center; margin-bottom: 1.5rem;">To gain full access to the Math Club and see who is posting, you must prove your worth by solving the following problem.</p>
+    <% if (typeof error !== 'undefined') { %>
+      <div class="error"><%= error %></div>
+    <% } %>
+
+    <div style="background: #f1f2f6; padding: 1.5rem; border-radius: 4px; margin-bottom: 1.5rem; text-align: center; font-weight: bold;">
+      Up to isomorphism, how many total groups (both abelian and non-abelian) exist of order 8?
+    </div>
+    </div>
+
+    <form action="/member" method="POST">
+      <label for="math_answer">Your Answer:</label>
+      <input type="text" id="math_answer" name="math_answer" placeholder="Enter your answer" required autocomplete="off">
+      <button type="submit">Submit Answer</button>
+    </form>
+    
+    <div class="nav-links">
+      <a href="/log">← Back to the Log</a>
+    </div>
+  </div>
+</body>
+</html>
